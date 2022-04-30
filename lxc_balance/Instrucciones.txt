@@ -1,0 +1,20 @@
+1. Levantar las maquinar virtuales y aprovisioar con los arhivos sh
+
+2. editar la configuracion de "lxdfan0"
+lxc network edit lxdfan0
+
+3. Configurar haproxy para escuchar local
+lxc config device add vm1servidor1 http proxy listen=tcp:0.0.0.0:80 connect=tcp:127.0.0.1:80
+
+4. Nota para el servicio no esta dispoble. modificar el archivo
+/etc/haproxy/errors/503.http en servidor 	vm1servidor1
+
+<html><body><h1>Lo sentimos!!! - 503 Service Unavailable</h1>
+El servicio no esta disponible en este momento, lo esperamos pronto de regreso...
+</body></html>
+
+
+**Apagar una de las maquinar virtuales
+ sudo poweroff
+
+

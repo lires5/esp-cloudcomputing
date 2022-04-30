@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config| 
+
+  if Vagrant.has_plugin? "vagrant-vbguest" 
+    config.vbguest.no_install  = true 
+    config.vbguest.auto_update = false
+    config.vbguest.no_remote   = true 
+  end  
+
+  config.vm.define :vm1 do |vm1| 
+    vm1.vm.box = "bento/ubuntu-20.04" 
+    vm1.vm.network :private_network, ip: "172.18.18.10" 
+    vm1.vm.hostname = "vm1.proyectonube.com"
+    vm1.vm.provision "shell", path: "nameserver.sh" 
+    #vm1.vm.provision "shell", path: "vm1container.sh" 
+    #vm1.vm.provision "shell", path: "vm1servidor1.sh"
+    #vm1.vm.provision "shell", path: "haproxy.sh"
+  end  
+
+  config.vm.define :vm2 do |vm2| 
+    vm2.vm.box = "bento/ubuntu-20.04" 
+    vm2.vm.network :private_network, ip: "172.18.18.11" 
+    vm2.vm.hostname = "vm2.proyectonube.com" 
+    vm2.vm.provision "shell", path: "nameserver.sh"
+    #vm2.vm.provision "shell", path: "vm2container.sh" 
+    #vm2.vm.provision "shell", path: "vm2web1.sh"
+    #vm2.vm.provision "shell", path: "vm2apache.sh"
+  end 
+
+  config.vm.define :vm3 do |vm3| 
+    vm3.vm.box = "bento/ubuntu-20.04" 
+    vm3.vm.network :private_network, ip: "172.18.18.12" 
+    vm3.vm.hostname = "vm3.proyectonube.com" 
+    vm3.vm.provision "shell", path: "nameserver.sh"
+    #vm3.vm.provision "shell", path: "vm3container.sh" 
+    #vm3.vm.provision "shell", path: "vm3web1.sh"
+    #vm3.vm.provision "shell", path: "vm3apache.sh"
+  end 
+
+config.vm.synced_folder "compartida/", "/home/compartida"
+
+end 
