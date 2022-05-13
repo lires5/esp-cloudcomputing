@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  if Vagrant.has_plugin? "vagrant-vbguest"
+    config.vbguest.no_install  = true
+    config.vbguest.auto_update = false
+    config.vbguest.no_remote   = true
+  end
+
+  config.vm.define :clienteUbuntu do |clienteUbuntu|
+    clienteUbuntu.vm.box = "bento/ubuntu-20.04"
+    clienteUbuntu.vm.network :private_network, ip: "172.18.18.2"
+    clienteUbuntu.vm.hostname = "clienteUbuntu"
+  end
+
+  config.vm.define :servidorUbuntu do |servidorUbuntu|
+    servidorUbuntu.vm.box = "bento/ubuntu-20.04"
+    servidorUbuntu.vm.network :private_network, ip: "172.18.18.3"
+    servidorUbuntu.vm.hostname = "servidorUbuntu"
+	servidorUbuntu.vm.provider "virtualbox" do |v|
+        v.cpus = 2
+        v.memory = 4096
+	end
+  end
+end

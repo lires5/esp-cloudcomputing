@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: neural-network-deployment
+  name: neural-network-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+  selector:
+    app: neural-network-deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: neural-network-deployment
+  name: neural-network-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: neural-network-deployment
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: neural-network-deployment
+    spec:
+      containers:
+      - image: uaolrevelocr.azurecr.io/neural-network
+        name: neural-network
+        ports:
+        - containerPort: 5000
